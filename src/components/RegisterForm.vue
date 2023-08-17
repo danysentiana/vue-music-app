@@ -99,7 +99,9 @@
 </template>
 
 <script>
-import firebase from '@/includes/firebase'
+import { mapActions } from 'pinia'
+import useUserStore from '@/stores/user'
+
 export default {
   name: 'RegisterForm',
   data() {
@@ -123,16 +125,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions(useUserStore, {
+      createUser: 'register'
+    }),
     async register(values) {
       this.reg_in_submissions = true
       this.reg_show_alert = true
       this.reg_alert_variant = 'bg-blue-500'
       this.reg_alert_message = 'Please wait... registering user'
-      let userCredential = null
+
       try {
-        userCredential = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(values.email, values.password)
+        await this.createUser(values)
       } catch (error) {
         this.reg_in_submissions = false
         this.reg_show_alert = true
@@ -143,10 +146,7 @@ export default {
 
       this.reg_alert_variant = 'bg-green-500'
       this.reg_alert_message = 'User registered successfully'
-      console.log(userCredential)
     }
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
