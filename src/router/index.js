@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/HomeView.vue'
 import About from '@/views/AboutView.vue'
 import Manage from '@/views/ManageView.vue'
+import useUserStore from '@/stores/user'
 
 const routes = [
   {
@@ -22,6 +23,9 @@ const routes = [
     beforeEnter: (to, from, next) => {
       console.log('Manage route guard')
       next()
+    },
+    meta: {
+      requiresAuth: true
     }
   },
   {
@@ -42,9 +46,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('global guard')
+  // console.log(to.meta)
+  if (!to.meta.requiresAuth) {
+    next()
+    return
+  }
 
-  next()
+  const store = useUserStore()
+
+  if (store.userLoggedIn) {
+    next()
+  } else {
+    next({ name: 'home' })
+  }
 })
 
 export default router
