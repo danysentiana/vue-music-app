@@ -13,7 +13,7 @@
           </div>
           <div class="p-6">
             <!-- Composition Items -->
-            <music-list
+            <music-edit
               v-for="(song, i) in songs"
               :key="song.docId"
               :song="song"
@@ -21,7 +21,7 @@
               :index="i"
               :removeSong="removeSong"
               :unsavedUpdate="unsavedUpdate"
-            ></music-list>
+            ></music-edit>
           </div>
         </div>
       </div>
@@ -32,11 +32,11 @@
 <script>
 import { songsCollection, auth } from '@/includes/firebase'
 import MusicUpload from '@/components/MusicUpload.vue'
-import MusicList from '@/components/MusicList.vue'
+import MusicEdit from '@/components/MusicEdit.vue'
 // import useUserStore from '@/stores/user'
 export default {
   name: 'manage-view',
-  components: { MusicUpload, MusicList },
+  components: { MusicUpload, MusicEdit },
   data() {
     return {
       songs: [],
