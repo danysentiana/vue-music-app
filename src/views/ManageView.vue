@@ -20,6 +20,7 @@
               :updateSong="updateSong"
               :index="i"
               :removeSong="removeSong"
+              :unsavedUpdate="unsavedUpdate"
             ></music-list>
           </div>
         </div>
@@ -38,7 +39,8 @@ export default {
   components: { MusicUpload, MusicList },
   data() {
     return {
-      songs: []
+      songs: [],
+      unsaved: false
     }
   },
   async created() {
@@ -61,6 +63,17 @@ export default {
       }
 
       this.songs.push(song)
+    },
+    unsavedUpdate(value) {
+      this.unsavedUpdate = value
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (!this.unsavedUpdate) {
+      next()
+    } else {
+      const leave = confirm('You have unsaved changes')
+      next(leave)
     }
   }
   // beforeRouteEnter(to, from, next) {
