@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/HomeView.vue'
-import About from '@/views/AboutView.vue'
-import Manage from '@/views/ManageView.vue'
-import Music from '@/components/Music.vue'
 import useUserStore from '@/stores/user'
+
+// chunk for dynamic route
+const Home = () => import('@/views/HomeView.vue')
+const About = () => import('@/views/AboutView.vue')
+const Manage = () => import('@/views/ManageView.vue')
+const Music = () => import('@/components/Music.vue')
 
 const routes = [
   {

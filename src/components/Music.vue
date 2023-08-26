@@ -178,20 +178,23 @@ export default {
       })
     }
   },
-  async created() {
-    const docSnapshot = await songsCollection.doc(this.$route.params.id).get()
-    // make sure the page doesn't load if certain song is invalid
-    if (!docSnapshot.exists) {
-      this.$router.push({ name: 'home' })
-      return
-    }
-    const { sort } = this.$route.query
+  async beforeRouteEnter(to, from, next) {
+    const docSnapshot = await songsCollection.doc(to.params.id).get()
 
-    this.sort = sort === '1' || sort === '2' ? sort : '1'
+    next((vm) => {
+      // make sure the page doesn't load if certain song is invalid
+      if (!docSnapshot.exists) {
+        vm.$router.push({ name: 'home' })
+        return
+      }
+      const { sort } = vm.$route.query
 
-    this.song = docSnapshot.data()
+      vm.sort = sort === '1' || sort === '2' ? sort : '1'
 
-    this.getComments()
+      vm.song = docSnapshot.data()
+
+      vm.getComments()
+    })
   }
 }
 </script>
