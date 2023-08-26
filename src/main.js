@@ -1,6 +1,3 @@
-import '@/assets/base.css'
-import '@/assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import VeeValidatePlugin from '@/includes/validation'
@@ -9,11 +6,17 @@ import Icon from './directives/icon'
 import i18n from './includes/i18n'
 import { registerSW } from 'virtual:pwa-register'
 import GlobalComponents from '@/includes/_global'
+import progressBar from './includes/progress-bar'
 
 import App from '@/App.vue'
 import router from '@/router'
+import '@/assets/base.css'
+import '@/assets/main.css'
+import 'nprogress/nprogress.css'
 
 registerSW({ immediate: true })
+
+progressBar(router)
 
 let app
 
