@@ -35,7 +35,7 @@ import MusicUpload from '@/components/MusicUpload.vue'
 import MusicEdit from '@/components/MusicEdit.vue'
 // import useUserStore from '@/stores/user'
 export default {
-  name: 'manage-view',
+  name: 'ManageView',
   components: { MusicUpload, MusicEdit },
   data() {
     return {
@@ -65,11 +65,11 @@ export default {
       this.songs.push(song)
     },
     unsavedUpdate(value) {
-      this.unsavedUpdate = value
+      this.unsaved = value
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (!this.unsavedUpdate) {
+    if (!this.unsaved) {
       next()
     } else {
       const leave = confirm('You have unsaved changes')

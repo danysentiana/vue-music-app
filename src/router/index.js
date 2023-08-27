@@ -7,6 +7,11 @@ const About = () => import('@/views/AboutView.vue')
 const Manage = () => import('@/views/ManageView.vue')
 const Music = () => import('@/components/Music.vue')
 
+// import Home from '@/views/HomeView.vue'
+// import About from '@/views/AboutView.vue'
+// import Manage from '@/views/ManageView.vue'
+// import Music from '@/components/Music.vue'
+
 const routes = [
   {
     name: 'home',
